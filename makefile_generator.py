@@ -15,14 +15,14 @@ class MakefileGenerator(object):
         self.get_command_line_input()
 
     def get_command_line_input(self):
-        parser = argparse.ArgumentParser(description="Autogenerate makefile for files in the specified directory")
-        parser.add_argument('dir', help="The directory with the .cpp, .hpp, .c, .h files")
-        parser.add_argument('-flags', required=False, help="Flags to use when compiling, enclosed in \"\". (Default: -g -Wall -std=c++11)")
-        parser.add_argument('-cc', required=False, help="Compiler (Default: g++)")
-        parser.add_argument('-exec', required=False, help="Name of executable")
-        parser.add_argument('-lang', required=False, choices=['c++', 'c'], help="Use Default Configs for Selected Language")
-        parser.add_argument('-lib', required=False, help="Libraries to Include When Compiling, Separated by Spaces")
-        parser.add_argument('-mode', required=False, help="If Specified, User Will Enter in Data Via Command Line Prompts", default=False, action='store_true')
+        parser = argparse.ArgumentParser(description="Generate makefile for files in the specified directory")
+        parser.add_argument('dir', help="Directory with the file(s)")
+        parser.add_argument('-flags', required=False, help="Flag(s) to use when compiling, enclosed in \"\" (Default: " + self.__flags)
+        parser.add_argument('-cc', required=False, help="Compiler (Default: )" + self.__compiler)
+        parser.add_argument('-exec', required=False, help="Executable name")
+        parser.add_argument('-lang', required=False, choices=['c++', 'c'], help="Use the default configs for the selected language")
+        parser.add_argument('-lib', required=False, help="Libraries (if there are multiple, must be separated by a space)")
+        parser.add_argument('-mode', required=False, help="If specified, user will enter in data via command line prompts", default=False, action='store_true')
         args = vars(parser.parse_args())
         self.__args = args
 

@@ -17,8 +17,8 @@ class MakefileGenerator(object):
     def get_command_line_input(self):
         parser = argparse.ArgumentParser(description="Generate makefile for files in the specified directory")
         parser.add_argument('dir', help="Directory with the file(s)")
-        parser.add_argument('-flags', required=False, help="Flag(s) to use when compiling, enclosed in \"\" (Default: " + self.__flags)
-        parser.add_argument('-cc', required=False, help="Compiler (Default: )" + self.__compiler)
+        parser.add_argument('-flags', required=False, help="Flag(s) to use when compiling, enclosed in \"\" (Default: %s)" % self.__flags)
+        parser.add_argument('-cc', required=False, help="Compiler (Default: %s)" % self.__compiler)
         parser.add_argument('-exec', required=False, help="Executable name")
         parser.add_argument('-lang', required=False, choices=['c++', 'c'], help="Use the default configs for the selected language")
         parser.add_argument('-lib', required=False, help="Libraries (if there are multiple, must be separated by a space)")

@@ -25,7 +25,7 @@ class MakefileGenerator(object):
         self.__args = vars(parser.parse_args())
 
         if not os.path.isdir(self.__args["dir"]) and not os.path.exists(self.__args["dir"]):
-            print("Invalid directory supplied on the command line, exiting...")
+            print "Invalid directory supplied on the command line, exiting..."
             exit(1)
 
         self.__directory = self.__args['dir']
@@ -61,10 +61,10 @@ class MakefileGenerator(object):
         VALID_EXTENSIONS = [".cpp", ".c", ".java"]
         file_list = list(filter(lambda x: os.path.splitext(x)[1] in VALID_EXTENSIONS, os.listdir(directory)))
         if len(file_list) == 0:
-            print("No valid files were found, exiting...")
+            print "No valid files were found, exiting..."
             exit(1)
         for x in file_list:
-            print("Processing File: %s" % x)
+            print "Processing File: %s" % x
         the_file = open(file_name, 'w')
         file_name_list = []
         write_str = ""
@@ -103,7 +103,7 @@ class MakefileGenerator(object):
             the_file.write("clean:\n\trm -f *.o %s\n" % ("a.exe" if platform.system().lower() == "windows" else "a.out"))
 
         the_file.close()
-        print("%s successfully saved." % os.path.abspath(file_name))
+        print "%s successfully saved." % os.path.abspath(file_name)
 
     def prompt_user_for_input(self):
         print "Please Fill Out The Following, Or Press <return> To Ignore And Use The Default."
@@ -145,7 +145,7 @@ class MakefileGenerator(object):
                 if answer.strip().lower() == 'y':
                     self.write_to_file(the_file)
                 else:
-                    print("File not overwritten, exiting...")
+                    print "File not overwritten, exiting..."
                     exit(0)
             else:
                 print "%s is not a valid file and/or path to a file." % the_file

@@ -1,4 +1,4 @@
-import os.path
+import os
 import argparse
 import platform
 
@@ -11,7 +11,6 @@ class MakefileGenerator(object):
         self.__args = ""
         self.__lib = ""
         self.__lang = ""
-        self.__mode = False
         self.get_command_line_input()
 
     def get_command_line_input(self):
@@ -23,8 +22,7 @@ class MakefileGenerator(object):
         parser.add_argument('-lang', required=False, choices=['c++', 'c'], help="Use the default configs for the selected language")
         parser.add_argument('-lib', required=False, help="Libraries (if there are multiple, must be separated by a space)")
         parser.add_argument('-mode', required=False, help="If specified, user will enter in data via command line prompts", default=False, action='store_true')
-        args = vars(parser.parse_args())
-        self.__args = args
+        self.__args = vars(parser.parse_args())
 
         if not os.path.isdir(self.__args["dir"]) and not os.path.exists(self.__args["dir"]):
             print("Invalid directory supplied on the command line, exiting...")
@@ -140,7 +138,6 @@ class MakefileGenerator(object):
     def makefile_exists(self):
         makefile_name = "makefile"
         the_file = os.path.join(self.__directory, makefile_name)
-        print self.__directory, the_file
         # note the exists funciton is case insensitive
         if os.path.exists(the_file):
             if os.path.isfile(the_file):      

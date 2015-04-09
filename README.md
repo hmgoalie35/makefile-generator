@@ -55,7 +55,7 @@ optional arguments:
   -lang {c++,c}  Use the default configs for the selected language
   -lib LIB       Libraries (if there are multiple, must be separated by a
                  space)
-  -mode          If specified, user will enter in data via command line
+  -mode          If specified, user will enter in data via command line prompts
 ```
 
 Any questions feel free to email me at hpittin1@binghamton.edu

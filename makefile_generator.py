@@ -2,6 +2,8 @@ import os
 import argparse
 import platform
 
+SUPPORTED_LANGUAGES = ['c++', 'c']
+
 class MakefileGenerator(object):
     def __init__(self):
         self.__directory = ""
@@ -11,21 +13,25 @@ class MakefileGenerator(object):
         self.__args = ""
         self.__lib = ""
         self.__lang = ""
-        self.get_command_line_input()
+        self.parse_command_line_input()
 
-    def get_command_line_input(self):
+    def create_parser(self):
         parser = argparse.ArgumentParser(description="Generate makefile for files in the specified directory")
         parser.add_argument('dir', help="Directory with the file(s)")
         parser.add_argument('-flags', required=False, help="Flag(s) to use when compiling, enclosed in \"\" (Default: %s)" % self.__flags)
         parser.add_argument('-cc', required=False, help="Compiler (Default: %s)" % self.__compiler)
         parser.add_argument('-exec', required=False, help="Executable name")
-        parser.add_argument('-lang', required=False, choices=['c++', 'c'], help="Use the default configs for the selected language")
+        parser.add_argument('-lang', required=False, choices=SUPPORTED_LANGUAGES, help="Use the default configs for the selected language")
         parser.add_argument('-lib', required=False, help="Libraries (if there are multiple, must be separated by a space)")
         parser.add_argument('-mode', required=False, help="If specified, user will enter in data via command line prompts", default=False, action='store_true')
+        return parser
+
+    def parse_command_line_input(self):
+        parser = self.create_parser()
         self.__args = vars(parser.parse_args())
 
         if not os.path.isdir(self.__args["dir"]) and not os.path.exists(self.__args["dir"]):
-            print "Invalid directory supplied on the command line, exiting..."
+            print "Invalid directory %s, exiting..." % self.__args["dir"]
             exit(1)
 
         self.__directory = self.__args['dir']

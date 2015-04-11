@@ -154,6 +154,6 @@ class MakefileGenerator(object):
                 print "%s is not a valid file and/or path to a file. Is %s a directory?" % (the_file, the_file)
         else:
             self.write_to_file(the_file)
-def main():
+
+if __name__ == '__main__':
     MakefileGenerator()
-main()

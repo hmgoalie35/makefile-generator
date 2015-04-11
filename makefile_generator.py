@@ -112,34 +112,35 @@ class MakefileGenerator(object):
         print "%s successfully saved." % os.path.abspath(file_name)
 
     def prompt_user_for_input(self):
-        print "Please Fill Out The Following, Or Press <return> To Ignore And Use The Default."
-        lang = raw_input("Language: If Specified, Defaults For the Selected Language Will Be Used And You Will Not Be Able to Further Customize Anything. Select From {c++, c}: ").strip()
+        print "Please fill out the following, or press <return> to ignore and use the default."
+        lang = raw_input("Language: if specified, defaults for the selected language will be used and you will not be able to further customize anything. Select from [c++, c]: ")
         if lang:
-            self.__lang = lang.lower()
+            self.__lang = lang.strip().lower()
             if self.__lang == 'c++':
                 self.__compiler = 'g++'
                 self.__flags = '-g -Wall -std=c++11'
-            else:
+            elif self.__lang == 'c':
                 # mode is c
                 self.__compiler = 'gcc'
                 self.__flags = '-g -Wall -std=c11'
-            self.makefile_exists()
+            else:
+                print "%s is not a valid selection, select from [c++, c]" % self.__lang
+                exit(1)
         else:
-            compiler = raw_input("Compiler: ").strip().lower()
+            compiler = raw_input("Compiler: ").strip()
             if compiler:
                 self.__compiler = compiler
-            flags = raw_input("Flags: ").strip().lower()
+            flags = raw_input("Flags: ").strip()
             if flags:
                 self.__flags = flags
-            lib = raw_input("Extra Libraries, Separated By A Space: ").lower()
+            lib = raw_input("Extra libraries, separated by a space: ").strip()
             if lib:
                 self.__lib = lib
             executable = raw_input("Executable Name: ").strip()
             if executable:
                 self.__executable = executable
 
-            print self.__directory
-            self.makefile_exists()
+        self.makefile_exists()
 
     def makefile_exists(self):
         makefile_name = "makefile"

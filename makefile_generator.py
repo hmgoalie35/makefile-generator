@@ -64,14 +64,13 @@ class MakefileGenerator(object):
         VALID_EXTENSIONS = [".cpp", ".c"]
         file_list = list(filter(lambda x: os.path.splitext(x)[1] in VALID_EXTENSIONS, os.listdir(os.path.dirname(file_name))))
         if len(file_list) == 0:
-            print "No valid files were found, exiting..."
+            print "No valid files were found in %s, exiting..." % os.path.dirname(file_name)
             exit(1)
-        for x in file_list:
-            print "Processing File: %s" % x
         the_file = open(file_name, 'w')
         file_name_list = []
         write_str = ""
         for a_file in file_list:
+            print "Processing File: %s" % a_file
             name = os.path.splitext(a_file)[0]
             file_name_list.append(name)
             write_str += "%s.o:\t%s" % (name, a_file)

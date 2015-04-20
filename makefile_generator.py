@@ -109,7 +109,7 @@ class MakefileGenerator(object):
 
     def prompt_user_for_input(self):
         print "Please fill out the following, or press <return> to ignore and use the default."
-        lang = raw_input("Language: if specified, defaults for the selected language will be used and you will not be able to further customize anything. Select from [c++, c]: ")
+        lang = raw_input("Language: if specified, defaults for the selected language will be used and you will not be able to further customize anything. Select from %s: " % self.list_to_string(SUPPORTED_LANGUAGES))
         if lang:
             self.__lang = lang.strip().lower()
             if self.__lang == 'c++':
@@ -120,7 +120,7 @@ class MakefileGenerator(object):
                 self.__compiler = 'gcc'
                 self.__flags = '-g -Wall -std=c11'
             else:
-                print "%s is not a valid selection, select from [c++, c]" % self.__lang
+                print "%s is not a valid selection, select from %s" % (self.__lang, self.list_to_string(SUPPORTED_LANGUAGES))
                 exit(1)
         else:
             compiler = raw_input("Compiler: ").strip()
@@ -154,6 +154,10 @@ class MakefileGenerator(object):
                 print "%s is not a valid file and/or path to a file. Is %s a directory?" % (the_file, the_file)
         else:
             self.write_to_file(the_file)
+
+    def list_to_string(self, the_list):
+        return '[' + ', '.join(the_list) + ']'
+
 def main():
     MakefileGenerator()
 main()

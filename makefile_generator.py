@@ -129,12 +129,13 @@ class MakefileGenerator(object):
             flags = raw_input("Flags: ").strip()
             if flags:
                 self.__flags = flags
-            lib = raw_input("Extra libraries, separated by a space: ").strip()
-            if lib:
-                self.__lib = lib
-            executable = raw_input("Executable Name: ").strip()
-            if executable:
-                self.__executable = executable
+        
+        lib = raw_input("Extra libraries, separated by a space: ").strip()
+        if lib:
+            self.__lib = lib
+        executable = raw_input("Executable Name: ").strip()
+        if executable:
+            self.__executable = executable
 
         self.makefile_exists()
 
